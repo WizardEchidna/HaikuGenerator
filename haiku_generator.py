@@ -62,7 +62,7 @@ while True:
             if dictionary_duplicate(new_word):
                 print("This word is already in the dictionary :)")
                 continue
-            part_of_speech = input("What part of speech is your word? \nPossible parts of speech: noun, pronoun, verb, adjective, adverb, preposition, conjunction, article\n")
+            part_of_speech = input("What part of speech is your word? \nPossible parts of speech: noun, proper noun, pronoun, verb, adjective, adverb, preposition, conjunction, article\n")
             number_of_syllables = input("How many syllables does your word have? Must be less than 7\n")
             if int(number_of_syllables) > 7:
                 print("Too many syllables")
