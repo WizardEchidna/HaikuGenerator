@@ -75,7 +75,7 @@ while True:
         print(generate_haiku())
         continue
     elif user_input == "uncouth mode":
-
+        uncouth_mode = True
     elif user_input == "add word":
         while True:
             new_word = input("Enter your new word:\n")
