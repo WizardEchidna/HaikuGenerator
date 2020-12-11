@@ -32,28 +32,18 @@ def get_word():
     return haiku_dictionary['dictionary'][random.randint(0, len(haiku_dictionary['dictionary']) - 1)]
 
 def update_dictionary(word, part_of_speech, number_of_syllables):
-    if not uncouth_mode:
-        haiku_dictionary_raw_json_temp = open('haiku_dictionary.json', 'r')
-        haiku_dictionary_raw_json = haiku_dictionary_raw_json_temp.read()
-        haiku_dictionary_raw_json_temp.close()
-        haiku_dictionary_dict = json.loads(haiku_dictionary_raw_json)
-        haiku_dictionary_dict['dictionary'].append({"word":word,"part_of_speech":part_of_speech,"number_of_syllables":number_of_syllables})
-        haiku_dictionary_string = json.dumps(haiku_dictionary_dict, indent=2)
-        with open('haiku_dictionary.json', 'w') as haiku_dictionary_temp:
-            haiku_dictionary_temp.write(haiku_dictionary_string)
-        with open('haiku_dictionary.json', 'r') as haiku_dictionary_temp:
-            haiku_dictionary = json.loads(haiku_dictionary_temp.read())
-    else:
-        haiku_dictionary_raw_json_temp = open('uncouth_dictionary.json', 'r')
-        haiku_dictionary_raw_json = haiku_dictionary_raw_json_temp.read()
-        haiku_dictionary_raw_json_temp.close()
-        haiku_dictionary_dict = json.loads(haiku_dictionary_raw_json)
-        haiku_dictionary_dict['dictionary'].append({"word":word,"part_of_speech":part_of_speech,"number_of_syllables":number_of_syllables})
-        haiku_dictionary_string = json.dumps(haiku_dictionary_dict, indent=2)
-        with open('uncouth_dictionary.json', 'w') as haiku_dictionary_temp:
-            haiku_dictionary_temp.write(haiku_dictionary_string)
-        with open('uncouth_dictionary.json', 'r') as haiku_dictionary_temp:
-            haiku_dictionary = json.loads(haiku_dictionary_temp.read())
+    dict_in_use = 'haiku_dictionary.json'
+    if uncouth_mode: dict_in_use = 'uncouth_dictionary.json'
+    haiku_dictionary_raw_json_temp = open(dict_in_use, 'r')
+    haiku_dictionary_raw_json = haiku_dictionary_raw_json_temp.read()
+    haiku_dictionary_raw_json_temp.close()
+    haiku_dictionary_dict = json.loads(haiku_dictionary_raw_json)
+    haiku_dictionary_dict['dictionary'].append({"word":word,"part_of_speech":part_of_speech,"number_of_syllables":number_of_syllables})
+    haiku_dictionary_string = json.dumps(haiku_dictionary_dict, indent=2)
+    with open(dict_in_use, 'w') as haiku_dictionary_temp:
+        haiku_dictionary_temp.write(haiku_dictionary_string)
+    with open(dict_in_use, 'r') as haiku_dictionary_temp:
+        haiku_dictionary = json.loads(haiku_dictionary_temp.read())
 
 def dictionary_duplicate(word):
     for i in haiku_dictionary['dictionary']:
@@ -75,7 +65,7 @@ while True:
         print(generate_haiku())
         continue
     elif user_input == "uncouth mode":
-        uncouth_mode = True
+        uncouth_mode = not uncouth_mode
     elif user_input == "add word":
         while True:
             new_word = input("Enter your new word:\n")
